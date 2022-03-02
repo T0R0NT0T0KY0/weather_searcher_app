@@ -2,12 +2,13 @@ package ru.itis.bulatov.com.weatherapp.servise;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itis.bulatov.com.weatherapp.dto.CreateUserDTO;
@@ -18,12 +19,12 @@ import ru.itis.bulatov.com.weatherapp.model.User;
 import ru.itis.bulatov.com.weatherapp.repository.DUserRepository;
 import ru.itis.bulatov.com.weatherapp.repository.UserRepository;
 
-import static ru.itis.bulatov.com.weatherapp.helpers.LoggerHelper.log;
 import static ru.itis.bulatov.com.weatherapp.helpers.Utils.fromListToString;
 import static ru.itis.bulatov.com.weatherapp.helpers.Utils.isNotEmptyString;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
 	private final UserRepository userRepository;
 	private final DUserRepository dUserRepository;
@@ -38,14 +39,14 @@ public class UserService {
 
 			User newUser = User.builder()
 					.email(createUserDto.getEmail())
-					.createdAt(LocalDate.now())
+					.createdAt(LocalDateTime.now())
 					.build();
 
 			DUser newDUser = DUser.builder()
 					.user(newUser)
 					.password(new String(
 							digester.digest(createUserDto.getPassword().getBytes(StandardCharsets.UTF_8))))
-					.createdAt(LocalDate.now())
+					.createdAt(LocalDateTime.now())
 					.build();
 
 			User savedUser = userRepository.save(newUser);

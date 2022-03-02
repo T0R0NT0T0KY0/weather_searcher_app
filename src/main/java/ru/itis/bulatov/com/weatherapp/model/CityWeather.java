@@ -3,7 +3,7 @@ package ru.itis.bulatov.com.weatherapp.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -21,11 +21,10 @@ public class CityWeather {
 	@Column(nullable = false)
 	private long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "city_id", nullable = false)
 	@ToString.Exclude
 	private City city;
-
 
 	@Column(nullable = false, columnDefinition="TEXT")
 	private String precipitation;
@@ -46,6 +45,5 @@ public class CityWeather {
 	private float windSpeed;
 
 	@Column(nullable = false, name = "created_at")
-	private LocalDate  createdAt = LocalDate.now();
-
+	private LocalDateTime createdAt = LocalDateTime.now();
 }

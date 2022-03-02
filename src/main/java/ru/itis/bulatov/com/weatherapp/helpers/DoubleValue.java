@@ -21,4 +21,12 @@ public class DoubleValue<T, F> {
 		this.error = error;
 		return this;
 	}
+
+	@Override
+	public String toString() {
+		return "DoubleValue{" +
+				"data=" + data +
+				", error=" + error +
+				'}';
+	}
 }
