@@ -3,7 +3,7 @@ package ru.itis.bulatov.com.weatherapp.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,7 +19,7 @@ public class DUser {
 	@Column(nullable = false)
 	private long id;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	@ToString.Exclude
 	private User user;
@@ -28,6 +28,6 @@ public class DUser {
 	private String password;
 
 	@Column(nullable = false, name = "created_at")
-	private LocalDate createdAt = LocalDate.now();
+	private LocalDateTime createdAt = LocalDateTime.now();
 
 }

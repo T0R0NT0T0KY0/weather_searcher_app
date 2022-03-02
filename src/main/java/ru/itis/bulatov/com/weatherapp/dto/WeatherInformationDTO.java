@@ -8,7 +8,7 @@ import ru.itis.bulatov.com.weatherapp.dto.cityWeatherResponse.CityWeatherRespons
 import ru.itis.bulatov.com.weatherapp.model.City;
 import ru.itis.bulatov.com.weatherapp.model.CityWeather;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -25,7 +25,7 @@ public class WeatherInformationDTO {
 	private float temperature;
 	private int pressure;
 	private float windSpeed;
-	private LocalDate createdAt = LocalDate.now();
+	private LocalDateTime createdAt = LocalDateTime.now();
 
 	public static WeatherInformationDTO fromCityWeather(CityWeather cityWeather) {
 		return new WeatherInformationDTO(cityWeather.getCity().getId(), cityWeather.getCity().getCityName(),
@@ -42,7 +42,7 @@ public class WeatherInformationDTO {
 				.humidity(cityWeather.getMain().getHumidity())
 				.temperature(cityWeather.getMain().getTemp())
 				.windSpeed(cityWeather.getWind().getSpeed())
-				.createdAt(LocalDate.now())
+				.createdAt(LocalDateTime.now())
 				.build();
 	}
 

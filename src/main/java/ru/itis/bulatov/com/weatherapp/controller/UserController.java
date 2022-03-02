@@ -1,6 +1,7 @@
 package ru.itis.bulatov.com.weatherapp.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,18 +13,17 @@ import ru.itis.bulatov.com.weatherapp.servise.UserService;
 import javax.validation.Valid;
 import java.util.Objects;
 
-import static ru.itis.bulatov.com.weatherapp.helpers.LoggerHelper.log;
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/users")
+@Slf4j
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
 	@PostMapping
-	public ResponseEntity getUsers(@Valid @RequestBody CreateUserDTO createUserDTO) {
+	public ResponseEntity addUser(@Valid @RequestBody CreateUserDTO createUserDTO) {
 		log.info(createUserDTO.toString());
 
 		DoubleValue<UserDTO, String> dataError = userService.createUser(createUserDTO);
@@ -34,10 +34,10 @@ public class UserController {
 		return ResponseEntity.ok(user);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity getUsersById(@PathVariable("id") long id) {
-		log.info("user_id={}", id);
-		DoubleValue<UserDTO, String> dataError = userService.getUserById(id);
+	@GetMapping("/{user_id}")
+	public ResponseEntity getUsersById(@PathVariable("user_id") long userId) {
+		log.info("userId={}", userId);
+		DoubleValue<UserDTO, String> dataError = userService.getUserById(userId);
 
 		if (Objects.nonNull(dataError.getError())) {return ResponseEntity.status(404).body(dataError.getError());}
 

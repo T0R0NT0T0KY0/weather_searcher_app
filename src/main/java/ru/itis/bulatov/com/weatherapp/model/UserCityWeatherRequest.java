@@ -3,7 +3,7 @@ package ru.itis.bulatov.com.weatherapp.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -20,17 +20,17 @@ public class UserCityWeatherRequest {
 	@Column(nullable = false)
 	private long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	@ToString.Exclude
 	private User user;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "city_id", nullable = false)
 	@ToString.Exclude
 	private CityWeather weather;
 
 
 	@Column(nullable = false, name = "created_at")
-	private LocalDate createdAt = LocalDate.now();
+	private LocalDateTime createdAt = LocalDateTime.now();
 }
